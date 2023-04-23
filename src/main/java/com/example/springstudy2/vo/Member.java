@@ -17,13 +17,15 @@ public class Member {
     private String password;
     private String email;
     private String name;
+    private String role;
 
-    public Member(Long id, String userId, String password, String email, String name) {
+    public Member(Long id, String userId, String password, String email, String name,String role) {
         this.id = id;
         this.userId = userId;
         this.password = password;
         this.email = email;
         this.name = name;
+        this.role = role;
     }
 
     public Member() {
