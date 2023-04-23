@@ -19,11 +19,11 @@ public class MemberDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        Member member = memberRepository.findByUserId(userId);
+        Optional<Member> member = memberRepository.findByUserId(userId);
 
-        return Optional.ofNullable(memberRepository.findByUserId(userId))
+        return memberRepository.findByUserId(userId)
                 .filter(m->m!=null)
-                .map(m->new SecurityMember(m))
+                .map(SecurityMember::new)
                 .get();
     }
 
