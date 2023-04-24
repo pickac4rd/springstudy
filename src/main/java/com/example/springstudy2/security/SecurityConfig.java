@@ -30,15 +30,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/user/availability/**","/*").permitAll()
+                .antMatchers("/", "/user/availability/**","/*").permitAll() //아무나 접근 가능한 URL
+                .antMatchers("/user/test").hasRole("USER") //USER 권한 있을경우만 접근 가능
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/loginProcess")
+                .loginProcessingUrl("/loginProcess") //Login 요청 URL
                 .and()
-                .logout()
-                .permitAll();
+                .logout() // 로그아웃 관련 처리
+                .logoutUrl("/logout") // 로그아웃 URL 설정
+                .logoutSuccessUrl("/") // 로그아웃 성공 후 이동할 URL 설정
+                .invalidateHttpSession(true) // 로그아웃 후 세션 초기화 설정
+                .deleteCookies("JSESSIONID") // 로그아웃 후 쿠기 삭제 설정
+                .and();
     }
 
     @Bean

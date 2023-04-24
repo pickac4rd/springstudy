@@ -39,6 +39,11 @@ public class MemberController {
         return "index";
     }
 
+    @GetMapping("/user/test")
+    public String testPage(){
+        return "test";
+    }
+
 //    @PostMapping("/signin")
 //    public String singin(String userId, String password){
 //

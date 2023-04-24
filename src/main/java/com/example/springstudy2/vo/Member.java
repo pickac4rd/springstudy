@@ -1,18 +1,21 @@
 package com.example.springstudy2.vo;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.parameters.P;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Member {
     @Id @GeneratedValue
     private Long id;
@@ -22,11 +25,11 @@ public class Member {
     private String userId;
 
     @NotBlank(message = "Password는 필수 입력값 입니다.")
-//    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,16}$",message = "Password는 8~16자리의 영문 대/소문자, 숫자만 사용 가능합니다")
+    @Pattern(regexp = "^(?=.[A-Za-z])(?=.[$@$!%#?&])[A-Za-z\\d$@$!%#?&]{8,16}$", message = "알파벳 소문자, 대문자, 특수문자 1개 이상 그리고 8~16")
     private String password;
 
     @NotBlank(message = "Email은 필수 입력값 입니다.")
-//    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+$",message = "Email 양식에 맞게 입력해주세요.")
+    @Email
     private String email;
 
     @NotBlank(message = "이름은 필수 입력값 입니다.")
@@ -35,15 +38,4 @@ public class Member {
 
     private String role;
 
-    public Member(Long id, String userId, String password, String email, String name,String role) {
-        this.id = id;
-        this.userId = userId;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.role = role;
-    }
-
-    public Member() {
-    }
 }
