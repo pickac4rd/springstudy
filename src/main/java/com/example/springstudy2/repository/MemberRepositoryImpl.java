@@ -45,7 +45,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     public Optional<Member> findByUserEmail(String email) {
-        Optional<Member> member = null;
+        Optional<Member> member = Optional.empty();
         try {
             Optional.ofNullable(em.createQuery("select m from Member m where m.email=:email", Member.class)
                     .setParameter("email", email).getSingleResult());

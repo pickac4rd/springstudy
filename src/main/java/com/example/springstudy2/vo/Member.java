@@ -25,7 +25,7 @@ public class Member {
     private String userId;
 
     @NotBlank(message = "Password는 필수 입력값 입니다.")
-    @Pattern(regexp = "^(?=.[A-Za-z])(?=.[$@$!%#?&])[A-Za-z\\d$@$!%#?&]{8,16}$", message = "알파벳 소문자, 대문자, 특수문자 1개 이상 그리고 8~16")
+//    @Pattern(regexp = "^(?=.[A-Za-z])(?=.[$@$!%#?&])[A-Za-z\\d$@$!%#?&]{8,16}$", message = "알파벳 소문자, 대문자, 특수문자 1개 이상 그리고 8~16")
     private String password;
 
     @NotBlank(message = "Email은 필수 입력값 입니다.")
