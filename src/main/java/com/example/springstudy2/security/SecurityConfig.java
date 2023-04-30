@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -18,7 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MemberDetailService memberDetailService;
 
-
+    @Autowired
+    AuthenticationFailureHandler customHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception
@@ -37,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/loginProcess") //Login 요청 URL
+                .failureHandler(customHandler)
                 .and()
                 .logout() // 로그아웃 관련 처리
                 .logoutUrl("/logout") // 로그아웃 URL 설정
@@ -53,4 +56,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberDetailService).passwordEncoder(passwordEncoder());
     }
+
 }
