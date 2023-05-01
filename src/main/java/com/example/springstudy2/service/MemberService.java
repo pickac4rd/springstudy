@@ -15,4 +15,9 @@ public interface MemberService {
 
     void checkDuplication(Member member);
 
+    void checkUserId(String userId);
+    void checkPassword(String password);
+    void checkEmail(String email);
+    void checkName(String name);
+
 }

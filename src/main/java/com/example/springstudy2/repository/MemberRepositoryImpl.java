@@ -32,28 +32,28 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public Optional<Member> findByUserId(String userid) {
-        Optional<Member> member = null;
+        Optional<Member> member;
         try {
             member = Optional.ofNullable(em.createQuery("select m from Member m where m.userId=:userid", Member.class)
                     .setParameter("userid", userid).getSingleResult());
         } catch (NoResultException e) {
             member = Optional.empty();
-        } finally {
-            return member;
         }
+
+        return member;
 
     }
 
     public Optional<Member> findByUserEmail(String email) {
-        Optional<Member> member = Optional.empty();
+        Optional<Member> member;
         try {
-            Optional.ofNullable(em.createQuery("select m from Member m where m.email=:email", Member.class)
+            member = Optional.ofNullable(em.createQuery("select m from Member m where m.email=:email", Member.class)
                     .setParameter("email", email).getSingleResult());
         } catch (NoResultException e) {
             member = Optional.empty();
-        } finally {
-            return member;
         }
+        return member;
+
     }
 
 

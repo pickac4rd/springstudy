@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Transactional
 @Controller
@@ -24,10 +26,17 @@ public class MemberController {
     @PostMapping("/signup")
     public String signUp(@Valid @ModelAttribute Member member) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
-        member.setRole("ROLE_USER");
+        Map<String, String> errors = new HashMap<>(); //value:error message
+
+
 
         memberService.checkDuplication(member);
+        memberService.checkUserId(member.getUserId());
+        memberService.checkPassword(member.getPassword());
+        memberService.checkEmail(member.getEmail());
+        memberService.checkName(member.getName());
+        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+        member.setRole("ROLE_USER");
         memberService.save(member);
 
         return "index";
