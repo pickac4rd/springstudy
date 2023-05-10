@@ -56,10 +56,10 @@ public class MemberRepositoryImpl implements MemberRepository {
         }
     }
 
-    @Override
-    public int changeRole(Member member) {
-
-    }
+//    @Override
+//    public int changeRole(Member member) {
+//
+//    }
 
 
 }
