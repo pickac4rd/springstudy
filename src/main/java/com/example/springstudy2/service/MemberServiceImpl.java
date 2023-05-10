@@ -43,4 +43,9 @@ public class MemberServiceImpl implements MemberService{
             throw new IllegalStateException("이미 존재하는 이메일입니다.");
     }
 
+    @Override
+    public int changeRole(Member member) {
+        return memberRepository.changeRole(member);
+    }
+
 }

@@ -22,7 +22,6 @@ public class MemberDetailService implements UserDetailsService {
         Optional<Member> member = memberRepository.findByUserId(userId);
 
         return memberRepository.findByUserId(userId)
-                .filter(m->m!=null)
                 .map(SecurityMember::new)
                 .get();
     }

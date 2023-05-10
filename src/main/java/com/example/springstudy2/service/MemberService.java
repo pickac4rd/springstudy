@@ -15,4 +15,5 @@ public interface MemberService {
 
     void checkDuplication(Member member);
 
+    int changeRole(Member member);
 }
