@@ -23,16 +23,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     AuthenticationFailureHandler customHandler;
 
     @Override
-    public void configure(WebSecurity web) throws Exception
-    {
+    public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/css/**", "/script/**", "image/**", "/fonts/**", "lib/**");
     }
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
+<<<<<<< HEAD
                 .antMatchers("/","/loginProcess","/signup","/login").permitAll() //아무나 접근 가능한 URL
+=======
+                .antMatchers("/", "/user/availability/**", "/*").permitAll() //아무나 접근 가능한 URL
+>>>>>>> 66568912fb558e8653b5280e964d4f8ef23ae766
                 .antMatchers("/user/test").hasRole("USER") //USER 권한 있을경우만 접근 가능
                 .anyRequest().authenticated()
                 .and()
@@ -50,9 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberDetailService).passwordEncoder(passwordEncoder());
     }

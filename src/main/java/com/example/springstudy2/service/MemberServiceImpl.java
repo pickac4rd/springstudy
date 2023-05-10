@@ -45,6 +45,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+<<<<<<< HEAD
     public void checkUserId(String userId) {
         System.out.println("userId = " + userId);
         if(!Pattern.matches("^[a-zA-Z0-9]{8,12}$",userId)){
@@ -76,4 +77,10 @@ public class MemberServiceImpl implements MemberService{
     }
 
 
+=======
+    public int changeRole(Member member) {
+        return memberRepository.changeRole(member);
+    }
+
+>>>>>>> 66568912fb558e8653b5280e964d4f8ef23ae766
 }

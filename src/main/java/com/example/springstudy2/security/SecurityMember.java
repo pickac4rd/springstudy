@@ -17,6 +17,8 @@ public class SecurityMember extends User {
     private static List<GrantedAuthority> makeGrantedAuthority(){
         List<GrantedAuthority> list = new ArrayList<>();
         list.add(new SimpleGrantedAuthority("ROLE_USER"));
+        list.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
+        list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return list;
     }
 }

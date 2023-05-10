@@ -15,9 +15,13 @@ public interface MemberService {
 
     void checkDuplication(Member member);
 
+<<<<<<< HEAD
     void checkUserId(String userId);
     void checkPassword(String password);
     void checkEmail(String email);
     void checkName(String name);
 
+=======
+    int changeRole(Member member);
+>>>>>>> 66568912fb558e8653b5280e964d4f8ef23ae766
 }
