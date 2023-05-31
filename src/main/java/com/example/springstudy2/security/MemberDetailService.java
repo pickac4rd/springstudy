@@ -21,9 +21,12 @@ public class MemberDetailService implements UserDetailsService {
 
         Optional<Member> member = memberRepository.findByUserId(userId);
 
+
         return memberRepository.findByUserId(userId)
                 .map(SecurityMember::new)
                 .get();
     }
+
+
 
 }

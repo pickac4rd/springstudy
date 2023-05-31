@@ -56,6 +56,11 @@ public class MemberRepositoryImpl implements MemberRepository {
         }
     }
 
+    @Override
+    public int changeRole(Member member) {
+        return 0;
+    }
+
 //    @Override
 //    public int changeRole(Member member) {
 //

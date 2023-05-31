@@ -3,6 +3,7 @@ package com.example.springstudy2.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     MemberDetailService memberDetailService;
 
     @Autowired
-    AuthenticationFailureHandler customHandler;
+    AuthenticationFailureHandler customFailureHandler;
+
+    @Autowired
+    AuthenticationSuccessHandler customLoginSuccessHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -39,7 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/loginProcess") //Login 요청 URL
-                .failureHandler(customHandler)
+                .defaultSuccessUrl("/")
+                .successHandler(customLoginSuccessHandler)
+                .failureHandler(customFailureHandler)
                 .and()
                 .logout() // 로그아웃 관련 처리
                 .logoutUrl("/logout") // 로그아웃 URL 설정
@@ -54,8 +61,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberDetailService).passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new CustomAuthenticationProvider();
     }
 
 }

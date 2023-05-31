@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @Transactional
-@Controller
+@RestController
 public class MemberController {
 
     @Autowired
@@ -49,5 +49,14 @@ public class MemberController {
     @PutMapping("/admin/change")
     public ApiResponse changeRole(@RequestBody Member member){
         int x = memberService.changeRole(member);
+        ApiResponse response;
+
+        if(x==1){
+            response = ApiResponse.changeRoleSuccess();
+        }else {
+            response = ApiResponse.changeRoleFail();
+        }
+
+        return response;
     }
 }

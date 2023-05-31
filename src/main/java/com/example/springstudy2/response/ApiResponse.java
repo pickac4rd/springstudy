@@ -21,6 +21,10 @@ public class ApiResponse<T> {
         return new ApiResponse<>(true,"권한 변경 성공!",null,null);
     }
 
+    public static ApiResponse<?> changeRoleFail(){
+        return new ApiResponse<>(false,"권한 변경 실패!",null,"E05");
+    }
+
     public static ApiResponse<?> authenticationFail(){
         return new ApiResponse<>(false,"로그인 실패!",null,"E02");
     }
